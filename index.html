@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulador de Caja Registradora</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="container" id="login-container">
+    <h2>Iniciar Sesión</h2>
+    <div class="input-group">
+      <label>Usuario: <input type="text" id="usuario" /></label>
+      <label>Contraseña: <input type="password" id="contrasena" /></label>
+    </div>
+    <button class="btn" onclick="login()">Ingresar</button>
+  </div>
+
+  <div class="container" id="pos-container">
+    <h2>Simulador de Caja Registradora</h2>
+    <div class="input-group">
+      <label>Producto:
+        <select id="producto">
+          <option value="1|Leche">Leche</option>
+          <option value="2|Carne">Carne</option>
+          <option value="3|Pollo">Pollo</option>
+          <option value="4|Verduras">Verduras</option>
+          <option value="5|Papa">Papa</option>
+          <option value="6|Ñame">Ñame</option>
+          <option value="7|Yuca">Yuca</option>
+        </select>
+      </label>
+      <label>Precio ($): <input type="number" id="precio" step="0.01" /></label>
+      <label>Cantidad: <input type="number" id="cantidad" /></label>
+      <button onclick="agregarProducto()">Agregar</button>
+    </div>
+
+    <table id="tabla-productos">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="total-section">
+      Total a pagar: $<span id="total">0.00</span>
+    </div>
+
+    <div class="input-group">
+      <label>Descuento (%): <input type="number" id="descuento" step="0.01" min="0" max="100" /></label>
+    </div>
+
+    <div class="input-group">
+      <label>Pago recibido ($): <input type="number" id="pago" step="0.01" /></label>
+    </div>
+
+    <button class="btn" onclick="procesarVenta()">Procesar Venta</button>
+    <button class="btn-secondary" onclick="verVentas()">Ver Historial de Ventas</button>
+    <!--button class="btn-secondary" onclick="volverPOS()">Volver al POS</button!-->
+
+    <div class="ticket" id="ticket"></div>
+  </div>
+
+  <div class="container" id="ventas-container">
+    <h2>Historial de Ventas</h2>
+    <div class="ticket" id="historial"></div>
+    <div class="total-section">
+      Total de ventas: $<span id="totalVentas">0.00</span>
+    </div>
+    <button class="btn-secondary" onclick="volverPOS()">Volver al POS</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
