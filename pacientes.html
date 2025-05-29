@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GesMed Colombia - Gestión de Pacientes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">GesMed Colombia</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="pacientes.html" class="active">Pacientes</a></li>
+                <li><a href="medicos.html">Médicos</a></li>
+                <li><a href="farmacia.html">Farmacia</a></li>
+                <li><a href="reportes.html">Reportes</a></li>
+                <li><a href="configuracion.html">Configuración</a></li>
+                <li><a href="#" onclick="logout()">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Gestión de Pacientes</h3>
+            <ul>
+                <li><a href="pacientes.html" class="active">Listado de Pacientes</a></li>
+                <li><a href="#" onclick="showSection('nuevo-paciente')">Registro Nuevo</a></li>
+                <li><a href="#" onclick="showSection('historial')">Historial Clínico</a></li>
+                <li><a href="#" onclick="showSection('citas-programadas')">Citas Programadas</a></li>
+                <li><a href="#" onclick="showSection('recetas')">Recetas Médicas</a></li>
+                <li><a href="#" onclick="showSection('examenes')">Exámenes y Resultados</a></li>
+                <li><a href="#" onclick="showSection('seguimiento')">Seguimiento</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Listado de Pacientes</h2>
+                    <div class="flex align-center">
+                        <input type="text" class="form-control" placeholder="Buscar paciente..." 
+                               style="width: 300px; margin-right: 1rem;" id="search-input">
+                        <button class="btn btn-primary" onclick="showNewPatientForm()">Nuevo Paciente</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="flex justify-between mb-1">
+                        <div>
+                            <label for="filter-eps">Filtrar por EPS:</label>
+                            <select id="filter-eps" class="form-control" 
+                                    style="width: 200px; display: inline-block; margin-left: 0.5rem;">
+                                <option value="">Todas</option>
+                                <option value="SURA">SURA</option>
+                                <option value="NUEVA EPS">NUEVA EPS</option>
+                                <option value="SANITAS">SANITAS</option>
+                                <option value="COOMEVA">COOMEVA</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="filter-status">Filtrar por estado:</label>
+                            <select id="filter-status" class="form-control" 
+                                    style="width: 150px; display: inline-block; margin-left: 0.5rem;">
+                                <option value="">Todos</option>
+                                <option value="activo">Activo</option>
+                                <option value="inactivo">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <table id="patients-table">
+                        <thead>
+                            <tr>
+                                <th>Documento</th>
+                                <th>Nombre Completo</th>
+                                <th>Edad</th>
+                                <th>Género</th>
+                                <th>EPS</th>
+                                <th>Régimen</th>
+                                <th>Última Cita</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1023456789</td>
+                                <td>Juan Carlos Pérez García</td>
+                                <td>35</td>
+                                <td>Masculino</td>
+                                <td>SURA</td>
+                                <td>Contributivo</td>
+                                <td>15/05/2023</td>
+                                <td>
+                                    <button class="btn" title="Ver historial" style="margin-right: 0.5rem;">👁️</button>
+                                    <button class="btn btn-primary" title="Editar" style="margin-right: 0.5rem;">✏️</button>
+                                    <button class="btn" style="background-color: #17a2b8; color: white;" title="Nueva cita">📅</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>52345678</td>
+                                <td>María Fernanda López Martínez</td>
+                                <td>28</td>
+                                <td>Femenino</td>
+                                <td>NUEVA EPS</td>
+                                <td>Subsidiado</td>
+                                <td>10/05/2023</td>
+                                <td>
+                                    <button class="btn" title="Ver historial" style="margin-right: 0.5rem;">👁️</button>
+                                    <button class="btn btn-primary" title="Editar" style="margin-right: 0.5rem;">✏️</button>
+                                    <button class="btn" style="background-color: #17a2b8; color: white;" title="Nueva cita">📅</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>98765432</td>
+                                <td>Carlos Andrés Rodríguez Sánchez</td>
+                                <td>45</td>
+                                <td>Masculino</td>
+                                <td>SANITAS</td>
+                                <td>Contributivo</td>
+                                <td>05/05/2023</td>
+                                <td>
+                                    <button class="btn" title="Ver historial" style="margin-right: 0.5rem;">👁️</button>
+                                    <button class="btn btn-primary" title="Editar" style="margin-right: 0.5rem;">✏️</button>
+                                    <button class="btn" style="background-color: #17a2b8; color: white;" title="Nueva cita">📅</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>45678912</td>
+                                <td>Ana Milena Gómez Ramírez</td>
+                                <td>52</td>
+                                <td>Femenino</td>
+                                <td>COOMEVA</td>
+                                <td>Contributivo</td>
+                                <td>02/05/2023</td>
+                                <td>
+                                    <button class="btn" title="Ver historial" style="margin-right: 0.5rem;">👁️</button>
+                                    <button class="btn btn-primary" title="Editar" style="margin-right: 0.5rem;">✏️</button>
+                                    <button class="btn" style="background-color: #17a2b8; color: white;" title="Nueva cita">📅</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="flex justify-between align-center mt-1">
+                        <div>
+                            Mostrando 1 a 4 de 4 pacientes
+                        </div>
+                        <div>
+                            <button class="btn" disabled>Anterior</button>
+                            <button class="btn btn-primary" style="margin: 0 0.5rem;">1</button>
+                            <button class="btn">2</button>
+                            <button class="btn">3</button>
+                            <button class="btn">...</button>
+                            <button class="btn">Siguiente</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>GesMed Colombia - Sistema de Gestión de Medicamentos © 2023</p>
+    </footer>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/patients.js"></script>
+</body>
+</html>

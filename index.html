@@ -1,82 +1,223 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Simulador de Caja Registradora</title>
-  <link rel="stylesheet" href="styles.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GesMed Colombia - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container" id="login-container">
-    <h2>Iniciar Sesión</h2>
-    <div class="input-group">
-      <label>Usuario: <input type="text" id="usuario" /></label>
-      <label>Contraseña: <input type="password" id="contrasena" /></label>
+    <header>
+        <div class="logo">GesMed Colombia</div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Inicio</a></li>
+                <li><a href="pacientes.html">Pacientes</a></li>
+                <li><a href="medicos.html">Médicos</a></li>
+                <li><a href="farmacia.html">Farmacia</a></li>
+                <li><a href="reportes.html">Reportes</a></li>
+                <li><a href="configuracion.html">Configuración</a></li>
+                <li><a href="#" onclick="logout()">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Módulos</h3>
+            <ul>
+                <li><a href="index.html" class="active">Dashboard</a></li>
+                <li><a href="#" onclick="showSection('registro-pacientes')">Registro de Pacientes</a></li>
+                <li><a href="#" onclick="showSection('citas')">Agendamiento de Citas</a></li>
+                <li><a href="#" onclick="showSection('consultas')">Consulta Médica</a></li>
+                <li><a href="#" onclick="showSection('laboratorio')">Órdenes de Laboratorio</a></li>
+                <li><a href="#" onclick="showSection('prescripciones')">Prescripción Electrónica</a></li>
+                <li><a href="#" onclick="showSection('autorizaciones')">Autorización de Procedimientos</a></li>
+                <li><a href="farmacia.html">Gestión de Medicamentos</a></li>
+                <li><a href="#" onclick="showSection('facturacion')">Facturación y Pagos</a></li>
+                <li><a href="#" onclick="showSection('seguimiento')">Seguimiento de Pacientes</a></li>
+                <li><a href="reportes.html">Reportes y Análisis</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Dashboard</h2>
+                    <div>
+                        <span>Fecha: <strong id="current-date"></strong></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>Bienvenido al Sistema de Gestión de Medicamentos para Colombia</p>
+                    
+                    <div class="grid-4 mt-2">
+                        <div class="card" style="background-color: #e3f2fd;">
+                            <h3>Pacientes Registrados</h3>
+                            <p style="font-size: 2rem; font-weight: bold;">1,245</p>
+                        </div>
+                        <div class="card" style="background-color: #e8f5e9;">
+                            <h3>Citas Hoy</h3>
+                            <p style="font-size: 2rem; font-weight: bold;">28</p>
+                        </div>
+                        <div class="card" style="background-color: #fff8e1;">
+                            <h3>Recetas Pendientes</h3>
+                            <p style="font-size: 2rem; font-weight: bold;">15</p>
+                        </div>
+                        <div class="card" style="background-color: #f3e5f5;">
+                            <h3>Medicamentos en Stock</h3>
+                            <p style="font-size: 2rem; font-weight: bold;">342</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Registro Rápido de Paciente</h2>
+                </div>
+                <div class="card-body">
+                    <form id="patient-form">
+                        <div class="grid-3">
+                            <div class="form-group">
+                                <label for="tipo-documento">Tipo de Documento</label>
+                                <select class="form-control" name="tipoDocumento" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="CC">Cédula de Ciudadanía</option>
+                                    <option value="TI">Tarjeta de Identidad</option>
+                                    <option value="CE">Cédula de Extranjería</option>
+                                    <option value="RC">Registro Civil</option>
+                                    <option value="PA">Pasaporte</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="documento">Número de Documento</label>
+                                <input type="text" class="form-control" name="documento" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha-expedicion">Fecha Expedición</label>
+                                <input type="date" class="form-control" name="fechaExpedicion">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombres">Nombres</label>
+                                <input type="text" class="form-control" name="nombres" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidos">Apellidos</label>
+                                <input type="text" class="form-control" name="apellidos" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha-nacimiento">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" name="fechaNacimiento" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="genero">Género</label>
+                                <select class="form-control" name="genero" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                    <option value="O">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="eps">EPS</label>
+                                <select class="form-control" name="eps" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="SURA">SURA</option>
+                                    <option value="NUEVA EPS">NUEVA EPS</option>
+                                    <option value="SANITAS">SANITAS</option>
+                                    <option value="COOMEVA">COOMEVA</option>
+                                    <option value="SALUD TOTAL">SALUD TOTAL</option>
+                                    <option value="FAMISANAR">FAMISANAR</option>
+                                    <option value="OTRA">Otra</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="regimen">Régimen</label>
+                                <select class="form-control" name="regimen" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="CONTRIBUTIVO">Contributivo</option>
+                                    <option value="SUBSIDIADO">Subsidiado</option>
+                                    <option value="ESPECIAL">Especial</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="text-right mt-2">
+                            <button type="reset" class="btn" style="margin-right: 0.5rem;">Limpiar</button>
+                            <button type="submit" class="btn btn-primary">Registrar Paciente</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Citas Programadas para Hoy</h2>
+                    <button class="btn btn-success">Nueva Cita</button>
+                </div>
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Paciente</th>
+                                <th>Documento</th>
+                                <th>Médico</th>
+                                <th>Especialidad</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>08:00 AM</td>
+                                <td>Juan Pérez García</td>
+                                <td>123456789</td>
+                                <td>Dra. María Rodríguez</td>
+                                <td>Medicina General</td>
+                                <td><span style="color: green;">Confirmada</span></td>
+                                <td>
+                                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.875rem; margin-right: 0.5rem;">Ver</button>
+                                    <button class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.875rem;">Iniciar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>09:30 AM</td>
+                                <td>Ana Gómez López</td>
+                                <td>987654321</td>
+                                <td>Dr. Carlos Sánchez</td>
+                                <td>Cardiología</td>
+                                <td><span style="color: green;">Confirmada</span></td>
+                                <td>
+                                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.875rem; margin-right: 0.5rem;">Ver</button>
+                                    <button class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.875rem;">Iniciar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>11:00 AM</td>
+                                <td>Luisa Martínez</td>
+                                <td>456789123</td>
+                                <td>Dra. Patricia Díaz</td>
+                                <td>Pediatría</td>
+                                <td><span style="color: orange;">Pendiente</span></td>
+                                <td>
+                                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.875rem; margin-right: 0.5rem;">Ver</button>
+                                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.875rem; background-color: #6c757d; color: white;">Confirmar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
     </div>
-    <button class="btn" onclick="login()">Ingresar</button>
-  </div>
 
-  <div class="container" id="pos-container">
-    <h2>Simulador de Caja Registradora</h2>
-    <div class="input-group">
-      <label>Producto:
-        <select id="producto">
-          <option value="1|Leche">Leche</option>
-          <option value="2|Carne">Carne</option>
-          <option value="3|Pollo">Pollo</option>
-          <option value="4|Verduras">Verduras</option>
-          <option value="5|Papa">Papa</option>
-          <option value="6|Ñame">Ñame</option>
-          <option value="7|Yuca">Yuca</option>
-        </select>
-      </label>
-      <label>Precio ($): <input type="number" id="precio" step="0.01" /></label>
-      <label>Cantidad: <input type="number" id="cantidad" /></label>
-      <button onclick="agregarProducto()">Agregar</button>
-    </div>
+    <footer>
+        <p>GesMed Colombia - Sistema de Gestión de Medicamentos © 2023</p>
+    </footer>
 
-    <table id="tabla-productos">
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Producto</th>
-          <th>Precio</th>
-          <th>Cantidad</th>
-          <th>Total</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-
-    <div class="total-section">
-      Total a pagar: $<span id="total">0.00</span>
-    </div>
-
-    <div class="input-group">
-      <label>Descuento (%): <input type="number" id="descuento" step="0.01" min="0" max="100" /></label>
-    </div>
-
-    <div class="input-group">
-      <label>Pago recibido ($): <input type="number" id="pago" step="0.01" /></label>
-    </div>
-
-    <button class="btn" onclick="procesarVenta()">Procesar Venta</button>
-    <button class="btn-secondary" onclick="verVentas()">Ver Historial de Ventas</button>
-    <!--button class="btn-secondary" onclick="volverPOS()">Volver al POS</button!-->
-
-    <div class="ticket" id="ticket"></div>
-  </div>
-
-  <div class="container" id="ventas-container">
-    <h2>Historial de Ventas</h2>
-    <div class="ticket" id="historial"></div>
-    <div class="total-section">
-      Total de ventas: $<span id="totalVentas">0.00</span>
-    </div>
-    <button class="btn-secondary" onclick="volverPOS()">Volver al POS</button>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GesMed Colombia - Configuración</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">GesMed Colombia</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="pacientes.html">Pacientes</a></li>
+                <li><a href="medicos.html">Médicos</a></li>
+                <li><a href="farmacia.html">Farmacia</a></li>
+                <li><a href="reportes.html">Reportes</a></li>
+                <li><a href="configuracion.html" class="active">Configuración</a></li>
+                <li><a href="#" onclick="logout()">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Configuración</h3>
+            <ul>
+                <li><a href="configuracion.html" class="active">Configuración General</a></li>
+                <li><a href="#" onclick="showSection('usuarios')">Usuarios y Permisos</a></li>
+                <li><a href="#" onclick="showSection('sistema')">Configuración del Sistema</a></li>
+                <li><a href="#" onclick="showSection('seguridad')">Seguridad</a></li>
+                <li><a href="#" onclick="showSection('respaldos')">Respaldos</a></li>
+                <li><a href="#" onclick="showSection('mipres')">Integración MIPRES</a></li>
+                <li><a href="#" onclick="showSection('plantillas')">Plantillas</a></li>
+                <li><a href="#" onclick="showSection('logs')">Logs del Sistema</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Configuración General de la Institución</h2>
+                </div>
+                <div class="card-body">
+                    <form id="general-config-form">
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label for="nombre-institucion">Nombre de la Institución</label>
+                                <input type="text" class="form-control" name="nombreInstitucion" 
+                                       value="Clínica GesMed Colombia" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nit">NIT</label>
+                                <input type="text" class="form-control" name="nit" 
+                                       value="900123456-7" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="direccion">Dirección</label>
+                                <input type="text" class="form-control" name="direccion" 
+                                       value="Calle 123 #45-67" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input type="tel" class="form-control" name="telefono" 
+                                       value="601-2345678" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" 
+                                       value="info@gesmed.com.co" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ciudad">Ciudad</label>
+                                <input type="text" class="form-control" name="ciudad" 
+                                       value="Bogotá" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="departamento">Departamento</label>
+                                <select class="form-control" name="departamento" required>
+                                    <option value="Cundinamarca" selected>Cundinamarca</option>
+                                    <option value="Antioquia">Antioquia</option>
+                                    <option value="Valle del Cauca">Valle del Cauca</option>
+                                    <option value="Atlántico">Atlántico</option>
+                                    <option value="Santander">Santander</option>
+                                    <option value="Bolívar">Bolívar</option>
+                                    <option value="Nariño">Nariño</option>
+                                    <option value="Córdoba">Córdoba</option>
+                                    <option value="Norte de Santander">Norte de Santander</option>
+                                    <option value="Tolima">Tolima</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="text-right mt-2">
+                            <button type="submit" class="btn btn-primary">
+                                Guardar Configuración General
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Configuración del Sistema</h2>
+                </div>
+                <div class="card-body">
+                    <form id="system-config-form">
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="backupAutomatico" checked 
+                                           style="margin-right: 0.5rem;">
+                                    Respaldo Automático Diario
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="notificacionesEmail" checked 
+                                           style="margin-right: 0.5rem;">
+                                    Notificaciones por Email
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="notificacionesSMS" 
+                                           style="margin-right: 0.5rem;">
+                                    Notificaciones por SMS
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="sesion-timeout">Tiempo de Sesión (minutos)</label>
+                                <select class="form-control" name="sesionTimeout">
+                                    <option value="15">15 minutos</option>
+                                    <option value="30" selected>30 minutos</option>
+                                    <option value="60">1 hora</option>
+                                    <option value="120">2 horas</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="idioma">Idioma del Sistema</label>
+                                <select class="form-control" name="idioma">
+                                    <option value="es" selected>Español</option>
+                                    <option value="en">English</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="zona">Zona Horaria</label>
+                                <select class="form-control" name="zona">
+                                    <option value="America/Bogota" selected>Bogotá (UTC-5)</option>
+                                    <option value="America/Caracas">Caracas (UTC-4)</option>
+                                    <option value="America/Lima">Lima (UTC-5)</option>
+                                    <option value="America/Mexico_City">Ciudad de México (UTC-6)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="text-right mt-2">
+                            <button type="submit" class="btn btn-primary">
+                                Guardar Configuración del Sistema
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Configuración de Seguridad</h2>
+                </div>
+                <div class="card-body">
+                    <form id="security-config-form">
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label for="password-min-length">Longitud Mínima de Contraseña</label>
+                                <select class="form-control" name="passwordMinLength">
+                                    <option value="6">6 caracteres</option>
+                                    <option value="8" selected>8 caracteres</option>
+                                    <option value="10">10 caracteres</option>
+                                    <option value="12">12 caracteres</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="max-login-attempts">Máximo Intentos de Login</label>
+                                <select class="form-control" name="maxLoginAttempts">
+                                    <option value="3" selected>3 intentos</option>
+                                    <option value="5">5 intentos</option>
+                                    <option value="10">10 intentos</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="passwordRequireSpecial" checked 
+                                           style="margin-right: 0.5rem;">
+                                    Requerir Caracteres Especiales
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="passwordRequireNumbers" checked 
+                                           style="margin-right: 0.5rem;">
+                                    Requerir Números
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="passwordRequireUppercase" checked 
+                                           style="margin-right: 0.5rem;">
+                                    Requerir Mayúsculas
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="session-duration">Duración de Sesión (minutos)</label>
+                                <select class="form-control" name="sessionDuration">
+                                    <option value="240">4 horas</option>
+                                    <option value="480" selected>8 horas</option>
+                                    <option value="720">12 horas</option>
+                                    <option value="1440">24 horas</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="twoFactorAuth" 
+                                           style="margin-right: 0.5rem;">
+                                    Autenticación de Dos Factores
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="auditLog" checked 
+                                           style="margin-right: 0.5rem;">
+                                    Registro de Auditoría
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="text-right mt-2">
+                            <button type="submit" class="btn btn-primary">
+                                Guardar Configuración de Seguridad
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Configuración MIPRES</h2>
+                </div>
+                <div class="card-body">
+                    <form id="mipres-config-form">
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label for="mipres-url">URL del Servicio MIPRES</label>
+                                <input type="url" class="form-control" name="mipresUrl" 
+                                       placeholder="https://mipres.sispro.gov.co/WSMIPRESNOPBS/api/">
+                            </div>
+                            <div class="form-group">
+                                <label for="mipres-token">Token de Acceso</label>
+                                <input type="password" class="form-control" name="mipresToken" 
+                                       placeholder="Ingrese el token de MIPRES">
+                            </div>
+                            <div class="form-group">
+                                <label for="mipres-nit">NIT Prestador</label>
+                                <input type="text" class="form-control" name="mipresNit" 
+                                       value="900123456">
+                            </div>
+                            <div class="form-group">
+                                <label for="mipres-codigo">Código Prestador</label>
+                                <input type="text" class="form-control" name="mipresCodigo" 
+                                       placeholder="Código asignado por MIPRES">
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="mipresActivo" 
+                                           style="margin-right: 0.5rem;">
+                                    Activar Integración MIPRES
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="mipresAutoSync" 
+                                           style="margin-right: 0.5rem;">
+                                    Sincronización Automática
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="text-right mt-2">
+                            <button type="button" class="btn" style="margin-right: 0.5rem;" onclick="testMipresConnection()">
+                                Probar Conexión
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Guardar Configuración MIPRES
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Estado del Sistema</h2>
+                </div>
+                <div class="card-body">
+                    <div class="grid-3">
+                        <div class="card" style="background-color: #e8f5e9;">
+                            <h4>Base de Datos</h4>
+                            <p style="color: #28a745; font-weight: bold;">✅ Conectada</p>
+                            <p>Último respaldo: Hoy 03:00 AM</p>
+                            <p>Tamaño: 2.3 GB</p>
+                        </div>
+                        <div class="card" style="background-color: #e8f5e9;">
+                            <h4>Servidor</h4>
+                            <p style="color: #28a745; font-weight: bold;">✅ Operativo</p>
+                            <p>Uptime: 99.9%</p>
+                            <p>CPU: 45% | RAM: 62%</p>
+                        </div>
+                        <div class="card" style="background-color: #fff8e1;">
+                            <h4>MIPRES</h4>
+                            <p style="color: #ffc107; font-weight: bold;">⚠️ Configuración Pendiente</p>
+                            <p>Última sincronización: N/A</p>
+                            <p>Estado: Desconectado</p>
+                        </div>
+                        <div class="card" style="background-color: #e8f5e9;">
+                            <h4>Licencias</h4>
+                            <p style="color: #28a745; font-weight: bold;">✅ Activas</p>
+                            <p>Usuarios: 25/50</p>
+                            <p>Vence: 15/12/2024</p>
+                        </div>
+                        <div class="card" style="background-color: #e3f2fd;">
+                            <h4>Almacenamiento</h4>
+                            <p style="color: #005883; font-weight: bold;">📊 75% Usado</p>
+                            <p>Disponible: 500 GB</p>
+                            <p>Total: 2 TB</p>
+                        </div>
+                        <div class="card" style="background-color: #e8f5e9;">
+                            <h4>Seguridad</h4>
+                            <p style="color: #28a745; font-weight: bold;">🔒 Protegido</p>
+                            <p>SSL: Activo</p>
+                            <p>Firewall: Configurado</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Gestión de Respaldos</h2>
+                </div>
+                <div class="card-body">
+                    <div class="flex justify-between align-center mb-2">
+                        <div>
+                            <h3>Respaldos Programados</h3>
+                            <p>Próximo respaldo: Mañana a las 03:00 AM</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" style="margin-right: 0.5rem;" onclick="createBackup()">
+                                Crear Respaldo Ahora
+                            </button>
+                            <button class="btn btn-success" onclick="restoreBackup()">
+                                Restaurar Respaldo
+                            </button>
+                        </div>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th>Tamaño</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>15/05/2023 03:00</td>
+                                <td>Automático</td>
+                                <td>2.1 GB</td>
+                                <td><span class="badge" style="background-color: #28a745; color: white;">Exitoso</span></td>
+                                <td>
+                                    <button class="btn" style="margin-right: 0.5rem;">📥 Descargar</button>
+                                    <button class="btn btn-primary">🔄 Restaurar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>14/05/2023 03:00</td>
+                                <td>Automático</td>
+                                <td>2.0 GB</td>
+                                <td><span class="badge" style="background-color: #28a745; color: white;">Exitoso</span></td>
+                                <td>
+                                    <button class="btn" style="margin-right: 0.5rem;">📥 Descargar</button>
+                                    <button class="btn btn-primary">🔄 Restaurar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>13/05/2023 15:30</td>
+                                <td>Manual</td>
+                                <td>1.9 GB</td>
+                                <td><span class="badge" style="background-color: #28a745; color: white;">Exitoso</span></td>
+                                <td>
+                                    <button class="btn" style="margin-right: 0.5rem;">📥 Descargar</button>
+                                    <button class="btn btn-primary">🔄 Restaurar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>GesMed Colombia - Sistema de Gestión de Medicamentos © 2023</p>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/config.js"></script>
+</body>
+</html>
