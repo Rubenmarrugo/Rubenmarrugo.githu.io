@@ -1,0 +1,25 @@
+.body{
+    color: aqua;
+}
+.in {
+    font-size: 2.5rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    margin-top: 40%;
+}
+
+.frase {
+    max-width: 500px;
+    text-align: justify;
+    font-style: italic;
+    font-size: 1.2rem;
+    line-height: 1.6;
+  
+}
+.correrizquierda{
+     padding-left: 30px;
+
+}
+.gradient-bg {
+  background: linear-gradient(135deg, #ff9933, #ffcc66); /* ejemplo */
+}
